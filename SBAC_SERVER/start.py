@@ -1,4 +1,5 @@
 import subprocess
+from security import safe_command
 
 print("?IMPORTANT? You're about to start a new instance of SBAC_SERVER")
 
@@ -16,7 +17,7 @@ class createInstance:
     def startProcess(self, script_name):
         command = ["python3", script_name] + self.params
         print("Starting process with command:", ' '.join(command))
-        subprocess.Popen(command)
+        safe_command.run(subprocess.Popen, command)
 
 
 ins = createInstance(input("? params: ").split() )
