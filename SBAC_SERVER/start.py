@@ -21,5 +21,4 @@ class createInstance:
 
 ins = createInstance(input("? params: ").split() )
 
-
 ins.startProcess("sbac_server.py")
