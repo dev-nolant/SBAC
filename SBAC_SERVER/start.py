@@ -19,8 +19,6 @@ class createInstance:
         subprocess.Popen(command)
 
 
-# Simulating user input for demonstration; replace 'input("? params: ")' with your actual input handling
 ins = createInstance(input("? params: ").split() )
 
-# Assuming 'app.py' is the script you want to run; replace it with your actual script name
 ins.startProcess("sbac_server.py")
