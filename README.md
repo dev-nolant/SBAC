@@ -29,7 +29,7 @@ SBAC thrives on community contributions. Whether it's improving code, documentin
 
 ## License 📄
 
-SBAC is licensed under the MIT License. Full license text will be available in the [LICENSE](https://github.com/dev-nolant/SBAC/blob/main/LICENSE) file.
+SBAC is licensed under the Apache License 2.0. Full license text will be available in the [LICENSE](https://github.com/dev-nolant/SBAC/blob/main/LICENSE) file.
 
 ## Acknowledgments 🙏
 
