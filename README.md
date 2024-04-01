@@ -9,7 +9,6 @@ Welcome to the official repository of SBAC (SandBox Anti-Cheat), a pioneering so
 - **Cheat Detection Engine:** Utilizes advanced algorithms and machine learning to identify known and emerging cheating methods. 🕵️‍♂️
 - **Easy Integration:** Designed to be seamlessly integrated with games of various scales, from indie to AAA titles. 🛠️
 - **Minimal Performance Impact:** Ensures game performance remains optimal by using efficient scanning and detection techniques. ⚡
-- **Cross-Platform Support:** Compatible with multiple operating systems, including Windows, macOS, and Linux. 💻
 - **Developer Tools:** Offers a suite of tools for developers to test and validate the security measures of their games. 🧰
 - **Community Reporting:** Incorporates a system for players and community members to report suspected cheating, enhancing detection capabilities. 📝
 
