@@ -29,28 +29,20 @@ def initialize_database():
     with app.app_context():
         db.create_all()
 
+
+
+# Removed Template Rendering -- Made it versatile as an API, and now returns JSON
 @app.route('/detections', methods=['GET', 'POST'])
 def detections():
     query = request.args.get('search', '')  # For GET requests
     if request.method == 'POST':
         query = request.form.get('search', '')  # For POST requests
-
-    if query:
-        detections = Detection.query.filter(
-            (Detection.ip.contains(query)) |
-            (Detection.username.contains(query)) |
-            (Detection.game_id.contains(query))
-        ).all()
     else:
         detections = Detection.query.all()
+        return jsonify([{"id": detection.id, "ip": detection.ip, "username": detection.username, "description": detection.description, "recorded_time": detection.recorded_time, "game_id": detection.game_id} for detection in detections])
 
-    return render_template('detections.html', detections=detections, search=query)
 
-@app.route('/detections', methods=['GET'])
-def get_detections():
-    detections = Detection.query.all()
-    return jsonify([{"id": detection.id, "ip": detection.ip, "username": detection.username, "description": detection.description, "recorded_time": detection.recorded_time, "game_id": detection.game_id} for detection in detections])
-
+    
 if __name__ == "__main__":
     initialize_database()  # Initialize the database before the Flask app starts accepting requests
     app.run(debug=args.debug, host=args.host, port=args.port, use_reloader=False)
