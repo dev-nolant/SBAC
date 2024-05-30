@@ -29,7 +29,6 @@ import tempfile
 import zipfile
 import re
 import stat
-import random
 import textwrap
 import warnings
 import site
@@ -64,6 +63,7 @@ from pkg_resources import (
 import pkg_resources
 from .._path import ensure_directory
 from ..extern.jaraco.text import yield_lines
+import secrets
 
 
 # Turn on PEP440Warnings
@@ -443,7 +443,7 @@ class easy_install(Command):
         try:
             pid = os.getpid()
         except Exception:
-            pid = random.randint(0, sys.maxsize)
+            pid = secrets.SystemRandom().randint(0, sys.maxsize)
         return os.path.join(self.install_dir, "test-easy-install-%s" % pid)
 
     def warn_deprecated_options(self):

@@ -22,7 +22,7 @@ from itertools import (
     zip_longest,
 )
 import operator
-from random import randrange, sample, choice
+import secrets
 
 __all__ = [
     'all_equal',
@@ -489,7 +489,7 @@ def random_product(*args, repeat=1):
 
     """
     pools = [tuple(pool) for pool in args] * repeat
-    return tuple(choice(pool) for pool in pools)
+    return tuple(secrets.choice(pool) for pool in pools)
 
 
 def random_permutation(iterable, r=None):
@@ -507,7 +507,7 @@ def random_permutation(iterable, r=None):
     """
     pool = tuple(iterable)
     r = len(pool) if r is None else r
-    return tuple(sample(pool, r))
+    return tuple(secrets.SystemRandom().sample(pool, r))
 
 
 def random_combination(iterable, r):
@@ -522,7 +522,7 @@ def random_combination(iterable, r):
     """
     pool = tuple(iterable)
     n = len(pool)
-    indices = sorted(sample(range(n), r))
+    indices = sorted(secrets.SystemRandom().sample(range(n), r))
     return tuple(pool[i] for i in indices)
 
 
@@ -539,7 +539,7 @@ def random_combination_with_replacement(iterable, r):
     """
     pool = tuple(iterable)
     n = len(pool)
-    indices = sorted(randrange(n) for i in range(r))
+    indices = sorted(secrets.SystemRandom().randrange(n) for i in range(r))
     return tuple(pool[i] for i in indices)
 
 

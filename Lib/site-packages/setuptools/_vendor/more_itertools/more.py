@@ -20,7 +20,6 @@ from itertools import (
 )
 from math import exp, factorial, floor, log
 from queue import Empty, Queue
-from random import random, randrange, uniform
 from operator import itemgetter, mul, sub, gt, lt
 from sys import hexversion, maxsize
 from time import monotonic
@@ -33,6 +32,7 @@ from .recipes import (
     take,
     unique_everseen,
 )
+import secrets
 
 __all__ = [
     'AbortThread',
@@ -3285,19 +3285,19 @@ def _sample_unweighted(iterable, k):
 
     # Generate random number that's the largest in a sample of k U(0,1) numbers
     # Largest order statistic: https://en.wikipedia.org/wiki/Order_statistic
-    W = exp(log(random()) / k)
+    W = exp(log(secrets.SystemRandom().random()) / k)
 
     # The number of elements to skip before changing the reservoir is a random
     # number with a geometric distribution. Sample it using random() and logs.
-    next_index = k + floor(log(random()) / log(1 - W))
+    next_index = k + floor(log(secrets.SystemRandom().random()) / log(1 - W))
 
     for index, element in enumerate(iterable, k):
 
         if index == next_index:
-            reservoir[randrange(k)] = element
+            reservoir[secrets.SystemRandom().randrange(k)] = element
             # The new W is the largest in a sample of k U(0, `old_W`) numbers
-            W *= exp(log(random()) / k)
-            next_index += floor(log(random()) / log(1 - W)) + 1
+            W *= exp(log(secrets.SystemRandom().random()) / k)
+            next_index += floor(log(secrets.SystemRandom().random()) / log(1 - W)) + 1
 
     return reservoir
 
@@ -3307,7 +3307,7 @@ def _sample_weighted(iterable, k, weights):
     # "Weighted random sampling with a reservoir".
 
     # Log-transform for numerical stability for weights that are small/large
-    weight_keys = (log(random()) / weight for weight in weights)
+    weight_keys = (log(secrets.SystemRandom().random()) / weight for weight in weights)
 
     # Fill up the reservoir (collection of samples) with the first `k`
     # weight-keys and elements, then heapify the list.
@@ -3317,7 +3317,7 @@ def _sample_weighted(iterable, k, weights):
     # The number of jumps before changing the reservoir is a random variable
     # with an exponential distribution. Sample it using random() and logs.
     smallest_weight_key, _ = reservoir[0]
-    weights_to_skip = log(random()) / smallest_weight_key
+    weights_to_skip = log(secrets.SystemRandom().random()) / smallest_weight_key
 
     for weight, element in zip(weights, iterable):
         if weight >= weights_to_skip:
@@ -3325,11 +3325,11 @@ def _sample_weighted(iterable, k, weights):
             # the weight-keys in log-space for better numerical stability.
             smallest_weight_key, _ = reservoir[0]
             t_w = exp(weight * smallest_weight_key)
-            r_2 = uniform(t_w, 1)  # generate U(t_w, 1)
+            r_2 = secrets.SystemRandom().uniform(t_w, 1)  # generate U(t_w, 1)
             weight_key = log(r_2) / weight
             heapreplace(reservoir, (weight_key, element))
             smallest_weight_key, _ = reservoir[0]
-            weights_to_skip = log(random()) / smallest_weight_key
+            weights_to_skip = log(secrets.SystemRandom().random()) / smallest_weight_key
         else:
             weights_to_skip -= weight
 
