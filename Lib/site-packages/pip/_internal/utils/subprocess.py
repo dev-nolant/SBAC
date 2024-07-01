@@ -19,6 +19,7 @@ from pip._internal.cli.spinners import SpinnerInterface, open_spinner
 from pip._internal.exceptions import InstallationSubprocessError
 from pip._internal.utils.logging import VERBOSE, subprocess_logger
 from pip._internal.utils.misc import HiddenText
+from security import safe_command
 
 if TYPE_CHECKING:
     # Literal was introduced in Python 3.8.
@@ -138,9 +139,7 @@ def call_subprocess(
     for name in unset_environ:
         env.pop(name, None)
     try:
-        proc = subprocess.Popen(
-            # Convert HiddenText objects to the underlying str.
-            reveal_command_args(cmd),
+        proc = safe_command.run(subprocess.Popen, reveal_command_args(cmd),
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT if not stdout_only else subprocess.PIPE,
