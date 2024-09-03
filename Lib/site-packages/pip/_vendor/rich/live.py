@@ -11,6 +11,7 @@ from .jupyter import JupyterMixin
 from .live_render import LiveRender, VerticalOverflowMethod
 from .screen import Screen
 from .text import Text
+import secrets
 
 
 class _RefreshThread(Thread):
@@ -269,7 +270,6 @@ class Live(JupyterMixin, RenderHook):
 
 
 if __name__ == "__main__":  # pragma: no cover
-    import random
     import time
     from itertools import cycle
     from typing import Dict, List, Tuple
@@ -349,10 +349,10 @@ if __name__ == "__main__":  # pragma: no cover
                 if exchange == select_exchange:
                     continue
                 time.sleep(0.4)
-                if random.randint(0, 10) < 1:
+                if secrets.SystemRandom().randint(0, 10) < 1:
                     console.log(next(examples))
                 exchange_rate_dict[(select_exchange, exchange)] = 200 / (
-                    (random.random() * 320) + 1
+                    (secrets.SystemRandom().random() * 320) + 1
                 )
                 if len(exchange_rate_dict) > len(exchanges) - 1:
                     exchange_rate_dict.pop(list(exchange_rate_dict.keys())[0])

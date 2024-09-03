@@ -5,13 +5,12 @@ import re
 import typing as t
 from collections import abc
 from collections import deque
-from random import choice
-from random import randrange
 from threading import Lock
 from types import CodeType
 from urllib.parse import quote_from_bytes
 
 import markupsafe
+import secrets
 
 if t.TYPE_CHECKING:
     import typing_extensions as te
@@ -356,9 +355,9 @@ def generate_lorem_ipsum(
         p = []
 
         # each paragraph contains out of 20 to 100 words.
-        for idx, _ in enumerate(range(randrange(min, max))):
+        for idx, _ in enumerate(range(secrets.SystemRandom().randrange(min, max))):
             while True:
-                word = choice(words)
+                word = secrets.choice(words)
                 if word != last:
                     last = word
                     break
@@ -366,12 +365,12 @@ def generate_lorem_ipsum(
                 word = word.capitalize()
                 next_capitalized = False
             # add commas
-            if idx - randrange(3, 8) > last_comma:
+            if idx - secrets.SystemRandom().randrange(3, 8) > last_comma:
                 last_comma = idx
                 last_fullstop += 2
                 word += ","
             # add end of sentences
-            if idx - randrange(10, 20) > last_fullstop:
+            if idx - secrets.SystemRandom().randrange(10, 20) > last_fullstop:
                 last_comma = last_fullstop = idx
                 word += "."
                 next_capitalized = True
