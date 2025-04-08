@@ -1,5 +1,5 @@
 # SBAC: SandBoxi Anti-Cheat 
-Welcome to the official repository of SBAC (SandBox Anti-Cheat), a pioneering solution designed to ensure fair play and integrity within online gaming environments. 🎮 SBAC leverages advanced sandboxing technology to isolate game processes, scrutinize actions, and prevent cheating mechanisms from influencing game outcomes. Our mission is to provide a secure, reliable, and highly efficient anti-cheat system that supports developers and communities in maintaining a clean and competitive gaming experience.
+Welcome to the official repository of SBAC (SandBox Anti-Cheat), a pioneering solution designed to ensure fair play and integrity within online gaming environments.  SBAC leverages advanced sandboxing technology to isolate game processes, scrutinize actions, and prevent cheating mechanisms from influencing game outcomes. Our mission is to provide a secure, reliable, and highly efficient anti-cheat system that supports developers and communities in maintaining a clean and competitive gaming experience.
 
 ## Features 
 
